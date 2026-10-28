@@ -1,84 +1,130 @@
 # CSC 786 — Ethical Data Collection and Reproducibility
 
-## Purpose
+## Project Purpose
 
-This small, reproducible cybersecurity data-collection exercise retrieves **historical Exploit Prediction Scoring System (EPSS)** values for three public CVE identifiers from **FIRST.org**. It demonstrates ethical use of a public API, documented collection parameters, local file storage, cryptographic checksums, and data provenance logging.
+This project aims to evaluate the robustness and computational efficiency of machine learning-based Network Intrusion Detection Systems (NIDS) under distribution shifts. It will explore how models trained on one network intrusion dataset will perform when tested on a different dataset. It will also look at the impact of compression techniques on the detection accuracy, false-positive rate and efficiency of the models.
 
-**Scope:** This is a **Module 5 data ethics/reproducibility demonstration**, not the training or evaluation dataset for the separate Network Intrusion Detection System (NIDS) course project. EPSS scores are vulnerability-level statistics, not network traffic records.
+**Scope:** The project will be carried out in a controlled experimental setting. There will be no live network traffic collection, intrusion detection implementation, or deployment in a real-world environment. The project will be limited to specific datasets, ML models, and compression methods.
+### Data Sources
 
-## Data source and citation
+The project will use publicly available NetFlow-based network intrusion datasets from the University of Queensland (UQ). The following datasets have been selected:
 
-- Data provider: FIRST.org EPSS Special Interest Group; data provided by Empirical Security.
-- Endpoint: <https://api.first.org/data/v1/epss>
-- Documentation: <https://api.first.org/epss/>
-- Data and attribution: <https://www.first.org/epss/data>
-- FAQ and interpretation: <https://www.first.org/epss/faq>
-- Access: Public; no API key or account needed; EPSS requests for small CVE batches are an intended API use case.
+#### Primary Datasets
 
-Please credit FIRST.org and Empirical Security when reusing scores. This repository contains only a narrow API query, not a bulk redistribution of EPSS data.
+1. **NF-CSE-CIC-IDS2018-v2**
+   - [Dataset Download](https://rdm.uq.edu.au/files/ce5161d0-ef9c-11ed-827d-e762de186848)
 
-## Fixed collection parameters
+2. **NF-UNSW-NB15-v2**
+   - [Dataset Download](https://rdm.uq.edu.au/files/8c6e2a00-ef9c-11ed-827d-e762de186848)
+
+#### Additional Datasets (if computational resources permit)
+
+3. **NF-ToN-IoT-v2**
+   - [Dataset Download](https://rdm.uq.edu.au/files/a4ad7080-ef9c-11ed-a964-b70596e96ad5)
+
+4. **NF-BoT-IoT-v2**
+   - [Dataset Download](https://rdm.uq.edu.au/files/b97fa3c0-ef9c-11ed-8007-832d3bc76ba8)
+
+**Official Dataset Website:** https://staff.itee.uq.edu.au/marius/NIDS_datasets/
+
+All four datasets use a common set of 43 NetFlow features, which supports cross-dataset evaluation.
+
+Dataset Licensing and Usage
+
+According to the University of Queensland, the datasets can be used for academic research purposes provided that the relevant research papers are cited. Commercial use requires agreement with the dataset authors.
+
+The original datasets will not be redistributed through this GitHub repository. Links to the original sources are provided instead.
+
+Official Dataset Website: https://staff.itee.uq.edu.au/marius/NIDS_datasets/
+
+Licence Information: https://www.cyber.uq.edu.au/project/machine-learning-based-nids-datasets
+
+Dataset Reference
+
+Sarhan, M., Layeghy, S., & Portmann, M. (2022). Towards a Standard Feature Set for Network Intrusion Detection System Datasets. Mobile Networks and Applications.
+
+https://doi.org/10.1007/s11036-021-01843-0
+
+### Fixed Collection Parameters
 
 | Parameter | Value |
 |---|---|
-| Endpoint | `https://api.first.org/data/v1/epss` |
-| Method | `GET` |
-| `cve` | `CVE-2021-44228,CVE-2023-34362,CVE-2023-44487` |
-| `date` | `2024-06-01` |
-| Requested fields | CVE ID, EPSS score, percentile, score date |
-| Expected scope | Up to three CVE records, not a representative cybersecurity sample |
-| Output | `data/epss_2024-06-01.csv` and `data/provenance.json` |
+| Primary Datasets | NF-CSE-CIC-IDS2018-v2, NF-UNSW-NB15-v2 |
+| Additional Datasets | NF-ToN-IoT-v2, NF-BoT-IoT-v2 (optional) |
+| Dataset Version | Version 2 (v2) |
+| Data Format | CSV |
+| Features | 43 standardized NetFlow features |
+| Target Labels | Benign and malicious traffic |
+| Collection Method | Download from the official University of Queensland repository |
+| Collection Date | Recorded at the time of download |
+| Data Integrity | SHA-256 checksum and file size verification |
+| Original Data | Preserved without modification |
+| Sampling Method | To be specified during implementation |
+| Random Seed | To be specified during implementation |
 
-Using a fixed historical score date avoids normal day-to-day changes in *current* EPSS scores. Reproducibility still depends on continued API availability and whether the provider revises historical results.
 
-## Repository contents
+The original datasets will be preserved without modification. Any sampling or preprocessing steps will be documented separately to ensure reproducibility.
 
-| File or folder | Purpose |
+
+### Repository Structure
+
+| File or Folder | Purpose |
 |---|---|
-| `notebooks/CSC786_Ethical_Data_Workflow.ipynb` | Main Colab notebook: fetch, validate, save, log, verify |
-| `README.md` | Purpose, sources, setup, reproduction instructions |
-| `ETHICS.md` | Privacy, attribution, rate limits, security, bias, and limitations |
-| `DATA_README.md` | Data dictionary, collection configuration, provenance log |
-| `.gitignore` | Excludes local data outputs and secrets |
-| `requirements.txt` | Dependency note (Python standard library only) |
-| `tests/test_notebook_workflow.py` | Offline smoke tests, no API access required |
-| `data/.gitkeep` | Keeps the output folder in the repository |
+| `notebooks/CSC786_NIDS_Data_Preparation.ipynb` | Main Colab notebook for loading, validating, and preparing network intrusion datasets |
+| `README.md` | Project purpose, scope, data sources, setup, and reproducibility instructions |
+| `ETHICS.md` | Privacy, dataset licensing, ethical considerations, and limitations |
+| `DATA_README.md` | Dataset details, preprocessing parameters, and data provenance |
+| `.gitignore` | Excludes large datasets, temporary files, and sensitive information |
+| `requirements.txt` | Python dependencies required to run the notebook |
+| `tests/test_data_workflow.py` | Tests for validating the data preparation workflow |
+| `data/.gitkeep` | Maintains the data folder without uploading the original datasets |
 
-## How to reproduce in Google Colab
 
-1. Open a **new Colab notebook** at <https://colab.research.google.com/>.
-2. Clone the public GitHub repository and move into it (replace the placeholders):
+## How to Reproduce in Google Colab
+
+1. Open Google Colab at https://colab.research.google.com/.
+
+2. Clone the GitHub repository using the following commands:
 
    ```python
-   !git clone https://github.com/YOUR_GITHUB_USERNAME/csc786-ethical-data-workflow.git
+   !git clone https://github.com/anjanarprasad/csc786-ethical-data-workflow.git
    %cd csc786-ethical-data-workflow
-   !ls -la
+   !ls
    ```
 
-3. In Colab's **Files** sidebar, locate `notebooks/CSC786_Ethical_Data_Workflow.ipynb` and open it (or open the notebook directly from the repository through Colab's GitHub tab). Run **Runtime > Run all**. The notebook uses the current working directory; if the cloned folder is not the current directory, it will print where outputs are written.
-4. A successful network request generates `data/epss_2024-06-01.csv`, `data/provenance.json`, and an appended provenance entry in `DATA_README.md` in the current working directory. Inspect the displayed row count and checksum.
-5. To run the independent offline validation tests from the repository directory:
+3. Install the required dependencies:
 
    ```python
-   !python -m unittest discover -s tests -v
+   !pip install -r requirements.txt
    ```
 
-6. Rerun the notebook with the same date and CVEs. Compare the **SHA-256 CSV hash** across runs. The retrieval timestamp and `DATA_README.md` run-log entry will change, but the CSV hash should stay the same unless the provider changes historical values.
+4. Download the selected network intrusion datasets from the University of Queensland using the links provided in the Data Sources section. Place the downloaded and extracted CSV files in the `data/raw/` directory.
 
-**Colab note:** When you open an `.ipynb` from GitHub, Colab may begin in `/content` rather than the cloned folder. For the easiest run, first clone and `%cd` to the repository in the same runtime, or accept that outputs are saved under `/content/data`. There are **no hard-coded personal paths**.
+5. Open `notebooks/CSC786_NIDS_Data_Preparation.ipynb` in Google Colab and run the cells in order.
+
+6. Verify that the datasets are loaded correctly and check the dataset dimensions, feature names, missing values, and class labels.
+
+7. Review the preprocessing steps and generated outputs. The same dataset versions and preprocessing parameters should be used when reproducing the workflow.
+
+8. Refer to `DATA_README.md` for information about the dataset sources, collection parameters, and preprocessing details.
+
+The original datasets are not included in the GitHub repository. They must be obtained from the official sources.
+
 
 ## Troubleshooting
 
-- `HTTP Error 429`: Too many requests. Stop repeated polling and retry later; the workflow only needs one request per run.
-- Connection/timeout error: Verify network access and the API's status; no valid outputs should be claimed if the request failed.
-- `ValueError` during validation: The API schema or historical data may have changed; inspect the returned response and document the change before modifying the parser.
-- Missing `data/`: The notebook creates it automatically.
-- GitHub push: Data output files and secrets are excluded by `.gitignore`. Upload the source notebook and Markdown files, not access tokens or unnecessary raw API dumps.
+- **FileNotFoundError:** Check whether the datasets have been downloaded, extracted, and placed in the correct `data/raw/` directory.
+- **ModuleNotFoundError:** Install the missing dependencies using `!pip install -r requirements.txt`.
+- **Memory Error:** Large datasets may exceed Google Colab's available memory. Use a documented sampling method if necessary.
+- **Missing or Mismatched Features:** Verify that the correct dataset versions are being used and check the feature names before preprocessing.
+- **Missing data folder:** Create the required directories before saving the processed files.
+- **GitHub Upload:** Avoid uploading large original datasets, sensitive information, or unnecessary output files. Use `.gitignore` to exclude them.
 
-## Expected results and limitations
+## Expected Results and Limitations
 
-The notebook should print the queried score date, the number of returned CVEs, where it saved the CSV and metadata, and the file's SHA-256 hash. The repository **does not claim that a live API request was successfully executed before publication**. Reviewers should run the notebook and report their actual results. The three selected CVEs are an illustrative convenience sample; EPSS is a predictive score, not proof of exploitation or a stand-alone vulnerability risk decision.
+The notebook is intended to load and validate the selected network intrusion datasets. It should display the number of records, features, missing values, and class distributions. Any preprocessing steps and generated outputs should be documented to support reproducibility.
 
-## Original workshop reference
+The project uses publicly available datasets and does not involve collecting live network traffic. Computational resources may limit the amount of data that can be processed in Google Colab.
 
-Structure adapted for the Module 5 assignment using the instructor's `CSC786_Ethics_Demo_ST.ipynb` as a learning reference. No GitHub tokens, account information, or personal paths from the workshop notebook were reused.
+The data preparation workflow does not represent the complete NIDS implementation or its final evaluation results.
+
