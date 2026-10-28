@@ -70,7 +70,7 @@ The original datasets will be preserved without modification. Any sampling or pr
 
 | File or Folder | Purpose |
 |---|---|
-| `notebooks/CSC786_NIDS_Data_Preparation.ipynb` | Main Colab notebook for loading, validating, and preparing network intrusion datasets |
+| `CSC786_NIDS_Data_Preparation.ipynb` | Main Colab notebook for loading, validating, and preparing network intrusion datasets |
 | `README.md` | Project purpose, scope, data sources, setup, and reproducibility instructions |
 | `ETHICS.md` | Privacy, dataset licensing, ethical considerations, and limitations |
 | `DATA_README.md` | Dataset details, preprocessing parameters, and data provenance |
@@ -100,7 +100,9 @@ The original datasets will be preserved without modification. Any sampling or pr
 
 4. Download the selected network intrusion datasets from the University of Queensland using the links provided in the Data Sources section. Place the downloaded and extracted CSV files in the `data/raw/` directory.
 
-5. Open `notebooks/CSC786_NIDS_Data_Preparation.ipynb` in Google Colab and run the cells in order.
+   
+5. Open `CSC786_NIDS_Data_Preparation.ipynb` in Google Colab and run the cells in order.
+
 
 6. Verify that the datasets are loaded correctly and check the dataset dimensions, feature names, missing values, and class labels.
 
