@@ -4,7 +4,7 @@
 
 This project aims to evaluate the robustness and computational efficiency of machine learning-based Network Intrusion Detection Systems (NIDS) under distribution shifts. It will explore how models trained on one network intrusion dataset will perform when tested on a different dataset. It will also look at the impact of compression techniques on the detection accuracy, false-positive rate and efficiency of the models.
 
-**Scope:** The project will be carried out in a controlled experimental setting. There will be no live network traffic collection, intrusion detection implementation, or deployment in a real-world environment. The project will be limited to specific datasets, ML models, and compression methods.
+**Scope:** The project will be carried out in a controlled experimental setting. There will be no live network traffic collection, real-time intrusion detection, or deployment in a real-world environment. The project will be limited to specific datasets, ML models, and compression methods.
 ### Data Sources
 
 The project will use publicly available NetFlow-based network intrusion datasets from the University of Queensland (UQ). The following datasets have been selected:
