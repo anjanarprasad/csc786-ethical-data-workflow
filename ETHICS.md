@@ -1,31 +1,19 @@
 # Ethical and Responsible Data Use
 
-## Data source, permissions, and attribution
+## 1. Privacy and Data Protection
 
-This exercise accesses historical EPSS scores for three public vulnerability identifiers through FIRST.org's documented public API. FIRST makes EPSS data available without registration and requests attribution. The source is **FIRST.org EPSS**, with scores supplied by **Empirical Security**. See <https://www.first.org/epss/data> and <https://www.first.org/epss/faq>.
+While the datasets used in this project are publicly available, network traffic data can contain sensitive information, such as IP addresses or other identifiers. This data will be handled with care, and any unnecessary sensitive information will not be uploaded to the public GitHub repository. Conditions regarding data usage and attribution will also be followed.
 
-The API is designed for small lookups, not bulk harvesting. The notebook makes one narrowly scoped request, includes a timeout, and avoids aggressive parallel fetching. Researchers should check the provider's current terms and rate limits before reusing or expanding this workflow.
+## 2. Dataset Bias and Limitations
 
-## Privacy and security
+Due to potential class imbalance and varying network traffic characteristics between datasets, the performance of models can be affected, leading to incorrect conclusions. This project will look at the class distributions and compare model performance across different datasets.
 
-- Collected fields: CVE identifier, historical EPSS score, percentile, and score date.
-- **No individual-level records, names, email addresses, credentials, IP addresses, or packet payloads** are intentionally requested or saved.
-- No API key is required. The notebook does not ask reviewers to enter a GitHub personal access token.
-- `.gitignore` excludes local outputs, `.env` files, common credentials files, and notebook checkpoints. This reduces accidental disclosure but cannot remove secrets previously committed; review commit history before publishing.
-- Only source-controlled code and documentation should be pushed by default; derived output is stored locally for inspection. If sharing outputs later, confirm attribution and necessity.
+## 3. False Predictions and Their Consequences
 
-## Fairness, interpretation, and limitations
+There is a risk of generating false positives that incorrectly identify benign traffic as malicious, or false negatives that fail to identify real attacks. This can cause security and operational problems if the models are used in real-world environments. These risks will be considered when evaluating the models.
 
-- The three CVEs were chosen for a classroom demonstration. They are not randomly sampled and **do not represent all vulnerabilities**.
-- EPSS is an estimate of likelihood of observed exploitation activity in a defined future window, not proof a particular system is vulnerable or compromised. It must not be treated as a complete risk metric.
-- Model methodology and scores can change across EPSS versions; requests pinned to a date support comparison but do not guarantee permanent historical immutability.
-- Possible misuse includes overstating risk, prioritizing security work solely by score, or presenting this small sample as a general evaluation. This notebook avoids those conclusions.
-- Provider outages and historical data corrections remain external reproducibility constraints.
+## 4. Responsible Reporting and Transparency
+This project will include information about preprocessing choices, experimental conditions, and limitations. The results will be presented based on the outputs of the experiments performed. The project will state that performance on these datasets cannot be assumed to generalize to real-world networks. The limitations due to dataset choice and computing power will also be stated.
 
-## Provenance and reproducibility safeguards
-
-The notebook records the endpoint, fixed parameters, retrieval timestamp (UTC), Python version, returned row count, API version when provided, and SHA-256 hash of the sorted CSV. It validates scores and percentile ranges, duplicate IDs, returned score dates, and requested CVE IDs before saving.
-
-## Academic integrity
-
-This repository documents a learning exercise. Results are not invented: the notebook must execute successfully before claiming a retrieved sample. The source of the data, limitations, and distinctions from the separate NIDS research project are stated explicitly.
+## 5. Security and Responsible Use
+This project will ensure that no passwords, API keys, or other sensitive credentials are stored in the public GitHub repository. The .gitignore file will be used to ensure that any unnecessary data files and sensitive information are ignored. This project will not perform any cyberattacks or monitor any live networks. It will only use existing datasets for experimental evaluation.
