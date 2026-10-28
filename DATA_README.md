@@ -55,42 +55,45 @@ The table summarizes the main features and target columns. The complete 43-featu
 
 Feature reference: https://fkie-cad.github.io/COMIDDS/content/datasets/nf_uq_nids/
 
+
 ## 3. Data Collection and Validation
 
 ### Data Collection
 
-The datasets will be downloaded from the official University of Queensland repository. The original files will be stored in the `data/raw/` directory without modification.
+The two primary datasets, NF-CSE-CIC-IDS2018-v2 and NF-UNSW-NB15-v2, were downloaded from the University of Queensland and processed using Google Colab.
 
-The collection process will record the dataset name, version, download date, file size, and SHA-256 checksum.
+The original CSV files were stored in the `data/raw/` directory without modification. The notebook used a fixed random seed to generate reproducible samples.
 
 ### Data Validation
 
-The following checks will be performed after loading the datasets:
+The notebook was executed with both primary datasets. The validation process included checking dataset features, class labels, missing values, and generating samples.
 
 | Validation Check | Purpose |
 |---|---|
-| File Availability | Confirm that the required dataset files exist |
+| File Availability | Confirm that the required CSV files exist |
 | Dataset Dimensions | Record the number of rows and columns |
-| Feature Names | Verify the presence of expected NetFlow features |
-| Missing Values | Identify missing or null values |
-| Duplicate Records | Identify duplicate network flow records |
+| Feature Names | Verify the expected NetFlow features |
+| Missing Labels | Identify records without valid classification labels |
 | Class Distribution | Examine benign and malicious traffic proportions |
-| Data Types | Check numerical and categorical columns |
-| File Integrity | Calculate SHA-256 checksums |
+| Sampling | Generate reproducible samples using a fixed random seed |
+| File Integrity | Verify saved files using SHA-256 checksums |
 
-The results of these checks will be recorded before preprocessing. Any changes made during preprocessing will be documented separately.
+During validation, one record with a missing binary label was identified in NF-CSE-CIC-IDS2018-v2. The notebook was updated to exclude records with missing labels from the processed data while preserving the original dataset.
 
 ## 4. Collection Runs
 
-A collection log will be maintained to record dataset downloads and validation activities.
+Both primary datasets were processed and verified in Google Colab on October 28, 2026.
 
-| Run | Dataset | Download Date | Records Loaded | Validation Status |
-|---|---|---|---|---|
-| 1 | NF-CSE-CIC-IDS2018-v2 | Pending | Pending | Not executed |
-| 2 | NF-UNSW-NB15-v2 | Pending | Pending | Not executed |
-| 3 | NF-ToN-IoT-v2 (optional) | Pending | Pending | Not executed |
-| 4 | NF-BoT-IoT-v2 (optional) | Pending | Pending | Not executed |
+| Dataset | Sampled Records | Validation Status |
+|---|---:|---|
+| NF-CSE-CIC-IDS2018-v2 | 4,000 | Passed |
+| NF-UNSW-NB15-v2 | 4,000 | Passed |
+| NF-ToN-IoT-v2 (optional) | Not processed | Not executed |
+| NF-BoT-IoT-v2 (optional) | Not processed | Not executed |
 
-For each completed run, the file size, SHA-256 checksum, software environment, and any validation errors will also be recorded.
+The notebook successfully generated 4,000 sampled records from each primary dataset, giving a total of 8,000 sampled records.
 
-The collection log will be updated after the datasets have been downloaded and validated in Google Colab.
+The saved sampled files passed SHA-256 checksum verification. The original datasets and generated data files will not be uploaded to the public GitHub repository.
+
+The actual checksums, software versions, and additional validation details are recorded in the notebook's generated provenance files.
+
