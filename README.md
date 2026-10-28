@@ -59,9 +59,9 @@ https://doi.org/10.1007/s11036-021-01843-0
 | Collection Date | Recorded at the time of download |
 | Data Integrity | SHA-256 checksum and file size verification |
 | Original Data | Preserved without modification |
-| Sampling Method | To be specified during implementation |
-| Random Seed | To be specified during implementation |
-
+| Sampling Method | Seeded random sampling, up to 2,000 records per binary class per dataset |
+| Random Seed | 42 for NF-CSE-CIC-IDS2018-v2; 43 for NF-UNSW-NB15-v2 |
+| Chunk Size | 50,000 records |
 
 The original datasets will be preserved without modification. Any sampling or preprocessing steps will be documented separately to ensure reproducibility.
 
@@ -76,8 +76,6 @@ The original datasets will be preserved without modification. Any sampling or pr
 | `DATA_README.md` | Dataset details, preprocessing parameters, and data provenance |
 | `.gitignore` | Excludes large datasets, temporary files, and sensitive information |
 | `requirements.txt` | Python dependencies required to run the notebook |
-| `tests/test_data_workflow.py` | Tests for validating the data preparation workflow |
-| `data/.gitkeep` | Maintains the data folder without uploading the original datasets |
 
 
 ## How to Reproduce in Google Colab
