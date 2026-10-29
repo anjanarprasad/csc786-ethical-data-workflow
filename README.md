@@ -78,38 +78,32 @@ The original datasets will be preserved without modification. Any sampling or pr
 | `requirements.txt` | Python dependencies required to run the notebook |
 
 
+
 ## How to Reproduce in Google Colab
 
-1. Open Google Colab at https://colab.research.google.com/.
+1. Open Google Colab and select the GitHub option under File > Open notebook.
 
-2. Clone the GitHub repository using the following commands:
+2. Enter the repository URL:
+   https://github.com/anjanarprasad/csc786-ethical-data-workflow
 
-   ```python
-   !git clone https://github.com/anjanarprasad/csc786-ethical-data-workflow.git
-   %cd csc786-ethical-data-workflow
-   !ls
-   ```
+3. Open `CSC786_NIDS_Reproducible_Colab.ipynb`.
 
-3. Install the required dependencies:
+4. Download the two primary CSV datasets using the official University of Queensland links provided above.
 
-   ```python
-   !pip install -r requirements.txt
-   ```
+5. Store the CSV files in a folder in your own Google Drive. Run the setup cell and enter that folder's path relative to My Drive when prompted. Alternatively, place the CSV files in the repository's `data/raw/` folder.
 
-4. Download the selected network intrusion datasets from the University of Queensland using the links provided in the Data Sources section. Place the downloaded and extracted CSV files in the `data/raw/` directory.
+6. Run the remaining cells to validate the datasets, generate samples, and save the provenance records.
 
-   
-5. Open `CSC786_NIDS_Data_Preparation.ipynb` in Google Colab and run the cells in order.
+7. For the NVD API section, request a free API key from:
+   https://nvd.nist.gov/developers/request-an-api-key
 
+   Save the key as `NVD_API_KEY` in Colab Secrets and enable notebook access. The API section can be skipped if no key is available.
 
-6. Verify that the datasets are loaded correctly and check the dataset dimensions, feature names, missing values, and class labels.
+8. Check the output files and SHA-256 verification results.
 
-7. Review the preprocessing steps and generated outputs. The same dataset versions and preprocessing parameters should be used when reproducing the workflow.
+The original datasets and API keys are not included in this repository. Reviewers must obtain their own copies and credentials.
 
-8. Refer to `DATA_README.md` for information about the dataset sources, collection parameters, and preprocessing details.
-
-The original datasets are not included in the GitHub repository. They must be obtained from the official sources.
-
+This product uses the NVD API but is not endorsed or certified by the NVD.
 
 ## Troubleshooting
 
