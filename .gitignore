@@ -3,7 +3,8 @@
 /data/raw/
 /data/processed/
 /data/provenance/
-
+/data/api/
+/data/collection_runs.csv
 # Local credentials and environment settings
 .env
 .env.*
