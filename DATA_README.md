@@ -60,40 +60,56 @@ Feature reference: https://fkie-cad.github.io/COMIDDS/content/datasets/nf_uq_nid
 
 ### Data Collection
 
-The two primary datasets, NF-CSE-CIC-IDS2018-v2 and NF-UNSW-NB15-v2, were downloaded from the University of Queensland and processed using Google Colab.
+The two primary datasets were downloaded from the University of Queensland and processed in Google Colab. The original CSV files were accessed from Google Drive without modifying them.
 
-The original CSV files were stored in the `data/raw/` directory without modification. The notebook used a fixed random seed to generate reproducible samples.
+The notebook reads the datasets in chunks of 50,000 records and uses fixed random seeds to generate samples.
 
 ### Data Validation
 
-The notebook was executed with both primary datasets. The validation process included checking dataset features, class labels, missing values, and generating samples.
+The workflow checks dataset dimensions, feature names, class labels, missing values, class distributions, and file integrity.
 
-| Validation Check | Purpose |
-|---|---|
-| File Availability | Confirm that the required CSV files exist |
-| Dataset Dimensions | Record the number of rows and columns |
-| Feature Names | Verify the expected NetFlow features |
-| Missing Labels | Identify records without valid classification labels |
-| Class Distribution | Examine benign and malicious traffic proportions |
-| Sampling | Generate reproducible samples using a fixed random seed |
-| File Integrity | Verify saved files using SHA-256 checksums |
+Both complete primary datasets were successfully processed. No missing or invalid binary labels were found in the latest run.
 
-During validation, one record with a missing binary label was identified in NF-CSE-CIC-IDS2018-v2. The notebook was updated to exclude records with missing labels from the processed data while preserving the original dataset.
+Duplicate rows were identified in the generated samples: 2 in NF-CSE-CIC-IDS2018-v2 and 21 in NF-UNSW-NB15-v2. These counts were recorded without modifying the original data.
 
 ## 4. Collection Runs
 
-Both primary datasets were processed and verified in Google Colab on October 28, 2026.
+Both primary datasets were processed in Google Colab on October 28, 2026.
 
-| Dataset | Sampled Records | Validation Status |
-|---|---:|---|
-| NF-CSE-CIC-IDS2018-v2 | 4,000 | Passed |
-| NF-UNSW-NB15-v2 | 4,000 | Passed |
-| NF-ToN-IoT-v2 (optional) | Not processed | Not executed |
-| NF-BoT-IoT-v2 (optional) | Not processed | Not executed |
+| Dataset | Records Processed | Sampled Records | Status |
+|---|---:|---:|---|
+| NF-CSE-CIC-IDS2018-v2 | 18,893,708 | 4,000 | Passed |
+| NF-UNSW-NB15-v2 | 2,390,275 | 4,000 | Passed |
+| NF-ToN-IoT-v2 | Not processed | — | Optional |
+| NF-BoT-IoT-v2 | Not processed | — | Optional |
 
-The notebook successfully generated 4,000 sampled records from each primary dataset, giving a total of 8,000 sampled records.
+A total of 8,000 records were sampled from the two primary datasets. The generated CSV files passed SHA-256 checksum verification.
 
-The saved sampled files passed SHA-256 checksum verification. The original datasets and generated data files will not be uploaded to the public GitHub repository.
+The notebook records processing timestamps, source file checksums, sample checksums, software versions, and validation results in provenance files.
 
-The actual checksums, software versions, and additional validation details are recorded in the notebook's generated provenance files.
+## 5. NVD API Collection
+
+The notebook also collects a public vulnerability record from the NIST National Vulnerability Database using the NVD API.
+
+An API key is stored securely in Google Colab Secrets and passed through the request header. The key is not included in the notebook or repository.
+
+The API request successfully retrieved CVE-2021-44228.
+
+| Item | Result |
+|---|---|
+| API | NVD CVE API 2.0 |
+| CVE | CVE-2021-44228 |
+| Records Collected | 1 |
+| HTTP Status | 200 |
+| Output | data/api/nvd_cve_example.csv |
+| Provenance | data/api/nvd_cve_provenance.json |
+
+The collected CSV has the following SHA-256 checksum:
+
+`fc744b4ce7adadaf187f38e7103b2fe160edb0b5a472f0497134a1f875764be8`
+
+The NVD record is collected separately and is not used as part of the network intrusion datasets.
+
+Original datasets, generated samples, and local provenance files are not uploaded to GitHub.
+Details are recorded in the notebook's generated provenance files.
 
