@@ -70,7 +70,7 @@ The original datasets will be preserved without modification. Any sampling or pr
 
 | File or Folder | Purpose |
 |---|---|
-| `CSC786_NIDS_Data_Preparation.ipynb` | Main Colab notebook for loading, validating, and preparing network intrusion datasets |
+| CSC786_NIDS_Reproducible_Colab.ipynb` | Main Colab notebook for NIDS data validation, sampling, and NVD API collection |
 | `README.md` | Project purpose, scope, data sources, setup, and reproducibility instructions |
 | `ETHICS.md` | Privacy, dataset licensing, ethical considerations, and limitations |
 | `DATA_README.md` | Dataset details, preprocessing parameters, and data provenance |
