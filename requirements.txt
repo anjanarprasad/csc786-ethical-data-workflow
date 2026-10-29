@@ -1,4 +1,7 @@
+
 # CSC786 NIDS reproducible data preparation
 # Versions used in each run are recorded in provenance JSON.
 numpy>=1.26,<3
 pandas>=2.1,<3
+requests>=2.31,<3
+
